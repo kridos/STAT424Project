@@ -1,0 +1,46 @@
+---
+title: 'STAT 424 Spring 2026 - Final Project'
+author: 'Alison Tan, Kian Sharifzadeh, Krish Doshi, Lauren Yee'
+date: "`r Sys.Date()`"
+output:
+  pdata_document: default
+  html_document:
+    number_sections: true
+  word_document: default
+---
+
+```{r setup}
+data <- read.csv('data.csv', header=TRUE)
+```
+
+
+```{r data-cleaning}
+
+#Removing Unused Columns
+data <- data[c(-1, -5, -6, -8, -9, -12, -13, -14, -15, -16, -20, -22, -27, -29, -33)]
+
+```
+
+```{r data-splitting}
+
+anthropometric <- c("Age", "Weightkg", "Heightcm")
+service        <- c("X.1stServe", "X.1stServePointsWon", "X.2ndServePointsWon",
+                    "BreakPointsSaved", "ServiceGamesWon", "TotalServicePointsWon")
+return_vars    <- c("X.1stServeReturnPointsWon", "X.2ndServeReturnPointsWon",
+                    "BreakPointsConverted", "ReturnGamesWon", "ReturnPointsWon",
+                    "TotalPointsWon")
+
+# Drop NAs only for variables relevant to each model
+data_anthro_100   <- na.omit(data[, c(anthropometric, "Rank100")])
+data_service_100  <- na.omit(data[, c(service, "Rank100")])
+data_return_100   <- na.omit(data[, c(return_vars, "Rank100")])
+
+data_anthro_300   <- na.omit(data[, c(anthropometric, "Rank300")])
+data_service_300  <- na.omit(data[, c(service, "Rank300")])
+data_return_300   <- na.omit(data[, c(return_vars, "Rank300")])
+
+data_anthro_500   <- na.omit(data[, c(anthropometric, "Rank500")])
+data_service_500  <- na.omit(data[, c(service, "Rank500")])
+data_return_500   <- na.omit(data[, c(return_vars, "Rank500")])
+
+```
