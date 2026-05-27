@@ -126,3 +126,73 @@ LRT("Rank500", service, data_service_500)
 LRT("Rank500", return_vars, data_return_500)
 
 ```
+
+```{r anthroplots}
+
+library(tidyverse)
+
+### Line with Error Bar Plots for Anthro
+
+data_anthro_100 %>% group_by(Rank100) %>% summarise(mean = mean(Age), sd = sd(Age)) %>% ggplot(mapping = aes(x = Rank100, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:10) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Age Range for Rank100")
+
+data_anthro_300 %>% group_by(Rank300) %>% summarise(mean = mean(Age), sd = sd(Age)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Age Range for Rank300")
+
+data_anthro_500 %>% group_by(Rank500) %>% summarise(mean = mean(Weightkg), sd = sd(Weightkg)) %>% ggplot(mapping = aes(x = Rank500, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:3) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Weight (kg) Range for Rank500")
+
+data_anthro_300 %>% group_by(Rank300) %>% summarise(mean = mean(Heightcm), sd = sd(Heightcm)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Height(cm) Range for Rank300")
+
+### Boxplots for Anthro
+
+ggplot(data = data_anthro_100, mapping = aes(x = Rank100, y = Age, group = Rank100)) + geom_boxplot() + scale_x_discrete(limits = 1:10) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Age Range for Rank100 Boxplots")
+
+ggplot(data = data_anthro_300, mapping = aes(x = Rank300, y = Age, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + scale_y_continuous(breaks = scales::breaks_width(2)) + labs(title = "Age Range for Rank300 Boxplots")
+
+ggplot(data = data_anthro_500, mapping = aes(x = Rank500, y = Weightkg, group = Rank500)) + geom_boxplot() + scale_x_discrete(limits = 1:3)  + labs(title = "Weight(kg) Range for Rank500 Boxplots")
+
+ggplot(data = data_anthro_300, mapping = aes(x = Rank300, y = Heightcm, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "Height(cm) Range for Rank300 Boxplots")
+
+```
+
+```{r serviceplots}
+### Line with Error Bar Plots for Service
+
+data_service_300 %>% group_by(Rank300) %>% summarise(mean = mean(X.1stServePointsWon), sd = sd(X.1stServePointsWon)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4)+ labs(title = "First Serve Points Won Rank300")
+
+data_service_300 %>% group_by(Rank300) %>% summarise(mean = mean(BreakPointsSaved), sd = sd(BreakPointsSaved)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4)+ labs(title = "Break Points Saved Rank300")
+
+data_service_500 %>% group_by(Rank500) %>% summarise(mean = mean(ServiceGamesWon), sd = sd(ServiceGamesWon)) %>% ggplot(mapping = aes(x = Rank500, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:3) + labs(title = "Service Games Won Rank500")
+
+### Boxplots for Service
+
+ggplot(data = data_service_300, mapping = aes(x = Rank300, y = X.1stServePointsWon, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "First Serve Points Won for Rank300 Boxplots")
+
+ggplot(data = data_service_300, mapping = aes(x = Rank300, y = BreakPointsSaved, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "Break Points Saved for Rank300 Boxplots")
+
+ggplot(data = data_service_500, mapping = aes(x = Rank500, y = ServiceGamesWon, group = Rank500)) + geom_boxplot() + scale_x_discrete(limits = 1:3) + labs(title = "Service Games Won for Rank500 Boxplots")
+
+
+```
+
+```{r returnplots}
+### Line with Error Bar Plots for Return
+
+data_return_300 %>% group_by(Rank300) %>% summarise(mean = mean(X.1stServeReturnPointsWon), sd = sd(X.1stServeReturnPointsWon)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4)+ labs(title = "First Serve Return Points Won Rank300")
+
+data_return_300 %>% group_by(Rank300) %>% summarise(mean = mean(ReturnGamesWon), sd = sd(ReturnGamesWon)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4)+ labs(title = "Return Games Won Rank300")
+
+data_return_300 %>% group_by(Rank300) %>% summarise(mean = mean(ReturnPointsWon), sd = sd(ReturnPointsWon)) %>% ggplot(mapping = aes(x = Rank300, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:4)+ labs(title = "Return Points Won Rank300")
+
+data_return_100 %>% group_by(Rank100) %>% summarise(mean = mean(TotalPointsWon), sd = sd(TotalPointsWon)) %>% ggplot(mapping = aes(x = Rank100, y = mean)) + geom_point() + geom_line() + geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) + scale_x_discrete(limits = 1:10)+ labs(title = "Total Points Won Rank100")
+
+### Boxplots for Return
+
+ggplot(data = data_return_300, mapping = aes(x = Rank300, y = X.1stServeReturnPointsWon, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "First Serve Return Points Won for Rank300 Boxplots")
+
+ggplot(data = data_return_300, mapping = aes(x = Rank300, y = ReturnGamesWon, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "Return Games  Won for Rank300 Boxplots")
+
+ggplot(data = data_return_300, mapping = aes(x = Rank300, y = ReturnPointsWon, group = Rank300)) + geom_boxplot() + scale_x_discrete(limits = 1:4) + labs(title = "Return Points Won for Rank300 Boxplots")
+
+ggplot(data = data_return_100, mapping = aes(x = Rank100, y = TotalPointsWon, group = Rank100)) + geom_boxplot() + scale_x_discrete(limits = 1:10) + labs(title = "Total Points Won for Rank100 Boxplots")
+
+
+```
