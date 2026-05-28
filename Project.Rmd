@@ -115,6 +115,46 @@ LRT("Rank500", return_vars, data_return_500)
 
 ```
 
+```{r fit tests}
+
+tests <- function(model) {
+  y <- model.response(model.frame(model))
+  y <- factor(y)
+  probs <- fitted(model)
+  obs <- model.matrix(~ y - 1)
+  
+  # Pearson goodness-of-fit
+  pearson_X2 <- sum((obs - probs)^2 / probs)
+  
+  # Deviance goodness-of-fit 
+  deviance_G2 <- 2 * sum(ifelse(obs == 0, 0, obs * log(obs / probs)))
+  
+  n <- nrow(obs)
+  k <- ncol(obs)
+  p <- length(coef(model))
+  df <- n * (k - 1) - p
+  
+  data.frame(
+    Pearson_X2 = pearson_X2,
+    Pearson_df = df,
+    Pearson_p_value = pchisq(pearson_X2, df = df, lower.tail = FALSE),
+    Deviance_G2 = deviance_G2,
+    Deviance_df = df,
+    Deviance_p_value = pchisq(deviance_G2, df = df, lower.tail = FALSE)
+  )
+}
+
+gof_tests(m1)
+gof_tests(m2)
+gof_tests(m3)
+gof_tests(m4)
+gof_tests(m5)
+gof_tests(m6)
+gof_tests(m7)
+gof_tests(m8)
+gof_tests(m9)
+```
+
 ```{r anthroplots}
 
 ### Line with Error Bar Plots for Anthro
